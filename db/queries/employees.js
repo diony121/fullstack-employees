@@ -1,14 +1,27 @@
+import db from "../client.js";
+
 /** @returns the employee created according to the provided details */
 export async function createEmployee({ name, birthday, salary }) {
-  // TODO
+   const SQL = `
+    INSERT INTO employees (name, birthday, salary)
+    VALUES ($1, $2, $3)
+    RETURNING *
+  `;
+  await db.query(SQL, [name, birthday, salary]);
+  console.log(`Inserted: ${name}`);
 }
 
 // === Part 2 ===
 
 /** @returns all employees */
 export async function getEmployees() {
-  // TODO
-}
+  const SQL = `
+    SELECT *
+    FROM employees
+    `;
+    const response = await db.query(SQL);
+    return response.rows;
+} 
 
 /**
  * @returns the employee with the given id

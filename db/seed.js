@@ -1,4 +1,4 @@
-import db from "#db/client";
+import db from "./client.js";
 import { createEmployee } from "./queries/employees.js";
 
 await db.connect();
@@ -7,7 +7,7 @@ await db.end();
 console.log("🌱 Database seeded.");
 
 async function seedEmployees() {
-   const employees = [
+  const employees = [
     { name: "Alice Johnson", birthday: "1990-05-15", salary: 75000 },
     { name: "Bob Smith", birthday: "1985-08-22", salary: 82000 },
     { name: "Carol Davis", birthday: "1992-11-03", salary: 68000 },
@@ -20,4 +20,3 @@ async function seedEmployees() {
     await createEmployee(employee);
   }
 }
-

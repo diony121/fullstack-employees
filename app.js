@@ -1,5 +1,10 @@
 import express from "express";
+import employeeRouter from "./api/employees.js";
+
 const app = express();
-export default app;
 
 // TODO: this file!
+
+app.use("/api/employees", employeeRouter);
+
+export default app;
