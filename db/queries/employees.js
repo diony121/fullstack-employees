@@ -2,7 +2,7 @@ import db from "../client.js";
 
 /** @returns the employee created according to the provided details */
 export async function createEmployee({ name, birthday, salary }) {
-   const SQL = `
+  const SQL = `
     INSERT INTO employees (name, birthday, salary)
     VALUES ($1, $2, $3)
     RETURNING *
@@ -19,16 +19,24 @@ export async function getEmployees() {
     SELECT *
     FROM employees
     `;
-    const response = await db.query(SQL);
-    return response.rows;
-} 
+  const response = await db.query(SQL);
+  return response.rows;
+}
 
 /**
  * @returns the employee with the given id
  * @returns undefined if employee with the given id does not exist
  */
 export async function getEmployee(id) {
-  // TODO
+  const SQL = `
+      SELECT *
+      FROM employees
+      WHERE id = $1
+    `;
+     console.log("Looking for id:", id);  // ← Debug
+  const { rows: [employee] } = await db.query(SQL, [id]);
+   console.log("Found:", employee);      // ← Debug
+  return employee;
 }
 
 /**
