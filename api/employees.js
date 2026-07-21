@@ -4,7 +4,7 @@ export default employeeRouter;
 
 // TODO: this file!
 
-import { getEmployees, getEmployee, updateEmployee } from "#db/queries/employees";
+import { getEmployees, getEmployee, updateEmployee , deleteEmployee} from "#db/queries/employees";
 
 employeeRouter.get("/", async (req, res, next) => {
   try {
@@ -45,3 +45,20 @@ employeeRouter.put("/:id", async (req, res, next) => {
   }
 
 })
+
+employeeRouter.delete("/:id", async (req, res, next) => {
+  try {
+    const id = Number(req.params.id);
+
+    const deleted = await deleteEmployee(id);
+
+    if (!deleted) {
+      return res.status(404).send("No employee found with that ID");
+    }
+
+    res.send(deleted);
+
+  } catch (err) {
+    next(err);
+  }
+});
